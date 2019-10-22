@@ -1,4 +1,28 @@
-## Unofficial PCem v14 port for macOS and Mac OS X
+## Updated for PCem v15 - removed local version of code.
+
+Thanks to kyr0 for the initial version! 
+
+Instructions:
+
+0. Install required tools.
+```
+brew install hg wxmac sdl2 autoconf automake pkg-config
+```
+1. Clone the official Mercurial repo.
+```
+hg clone https://bitbucket.org/pcem_emulator/pcem
+```
+
+2. Copy across the patch
+```
+cp macos.patch pcem
+cd pcem
+patch -p1 < macos.patch
+```
+
+3. Proceed with the build as detailed below.
+
+## Unofficial PCem port for macOS and Mac OS X
 
 If you're a user looking for the Mac OS X build of PCem, click [Releases](https://github.com/kyr0/PCemV14MacOSX/releases)  and download 
 the latest release. Please note that atm this is an *unofficial* build. If you have issues,

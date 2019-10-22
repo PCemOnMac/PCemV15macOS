@@ -13,7 +13,7 @@ mkdir macos/build/PCem.app/Contents/Resources
 # copy necessary files
 cp macos/Info.plist macos/build/PCem.app/Contents
 cp macos/pcem.icns macos/build/PCem.app/Contents/Resources
-cp pcem macos/build/PCem.app/Contents/MacOS
+cp ../pcem/src/pcem macos/build/PCem.app/Contents/MacOS
 cp macos/launch_pcem.sh macos/build/PCem.app/Contents/MacOS
 
 # set executable permission

@@ -1,0 +1,52 @@
+--- pcem/src/Makefile.am	2019-10-22 14:13:45.000000000 +0100
++++ pcem.macos/src/Makefile.am	2019-10-22 13:29:30.000000000 +0100
+@@ -131,7 +131,7 @@
+ endif
+ 
+ if !HAS_OFF64T
+-#pcem_CFLAGS += -Doff64_t=off_t -Dfopen64=fopen -Dfseeko64=fseek -Dftello64=ftell
++pcem_CFLAGS += -Doff64_t=off_t -Dfopen64=fopen -Dfseeko64=fseek -Dftello64=ftell
+ endif
+ 
+ if RELEASE_BUILD
+--- pcem/src/wx-sdl2.c	2019-10-22 14:13:46.000000000 +0100
++++ pcem.macos/src/wx-sdl2.c	2019-10-22 13:48:24.000000000 +0100
+@@ -11,6 +11,10 @@
+ #undef BITMAP
+ #endif
+ 
++#ifdef __APPLE__
++#include <sys/types.h>
++#include <sys/stat.h>
++#endif
+ 
+ #include <string.h>
+ #include <stdio.h>
+@@ -233,6 +237,18 @@
+ #ifdef __linux
+         wx_get_home_directory(s);
+         strcat(s, ".pcem/");
++#elif defined __APPLE__
++
++    wx_get_home_directory(s);
++    strcat(s, "Library/Application Support/PCem/");
++
++    struct stat st = {0};
++
++    // create ~/Library/Application Support/PCem/
++    // if it doesn't exist
++    if (stat(s, &st) == -1) {
++        mkdir(s, 0700);
++    }
+ #else
+         char* path = SDL_GetBasePath();
+         strcpy(s, path);
+@@ -241,7 +257,7 @@
+ 
+ void set_window_title(const char *s)
+ {
+-        sdl_set_window_title(s);
++//        sdl_set_window_title(s);
+ }
+ 
+ float flash_func(float x)
